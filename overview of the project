@@ -1,0 +1,61 @@
+Tableau Dashboard Outline for Invoice Risk Analysis
+This Tableau dashboard will help finance teams track payment delays, identify high-risk invoices, and improve collections. Below is an outline of the key visualizations and KPIs to include.
+
+1. Dashboard Title: Invoice Risk & Collection Analysis
+Description: “Monitor overdue invoices, identify high-risk customers, and analyze payment trends to improve Accounts Receivables Turnover.”
+Filters: Date Range (Due Date, Payment Date), Customer ID, Industry, Invoice Amount Range
+
+2. Key Metrics (KPI Cards at the Top)
+i. Total Outstanding Amount: SUM(invoice_amount) WHERE days_past_due > 0
+ii) % of Late Payments: COUNT(late_invoices) / COUNT(total_invoices)
+iii) Avg Days Late: AVG(days_past_due) WHERE days_past_due > 0
+iv) High-Risk Invoices: COUNT(invoice_id) WHERE risk_score > 0.05
+
+Goal: Provide at-a-glance financial health insights.
+
+3. Risk Heatmap (Customer-Level)
+Chart Type: Heatmap
+X-Axis: Customer ID
+Y-Axis: Total Outstanding Amount
+Color Scale:
+Red: High-risk customers (Many overdue invoices, high amounts)
+Yellow: Moderate risk
+Green: Low-risk customers
+
+Goal: Identify which customers are frequently late with large overdue amounts.
+
+4. Payment Delay Trend Analysis (Line Chart)
+Chart Type: Line Chart
+X-Axis: Month/Week
+Y-Axis: Avg Days Late
+Filters: Customer ID, Industry
+
+Goal: Show trends in late payments over time. Identify if delays increase in specific months (seasonal trends).
+
+5. High-Risk Invoice Breakdown (Bar Chart)
+Chart Type: Bar Chart
+X-Axis: Invoice Amount
+Y-Axis: Days Past Due
+Color: Risk Score (Darker = Higher Risk)
+
+Goal: Identify high-value invoices with long delays to prioritize collection.
+
+6. Drill-Down Table (Detailed Invoice Data)
+Columns:
+Invoice ID | Customer ID | Invoice Amount | Due Date | Payment Date | Days Past Due | Risk Score
+Filters: Customer, Industry, Due Date Range
+
+Goal: Finance teams can drill down into specific invoices and take action.
+
+7. Automated Alerts & Recommendations
+Logic: Highlight invoices approaching the overdue threshold (e.g., > 25 days).
+Visualization: Dynamic Message Box
+“Warning: X invoices are close to being overdue. Take action!”
+
+Goal: Proactively notify collections teams about upcoming risks.
+
+Next Steps
+Step 1: Import invoice_risk_scores.csv into Tableau.
+Step 2: Create KPI Cards, Heatmaps, Line Charts, and Bar Charts.
+Step 3: Set up filters, drill-downs, and alerts.
+Step 4: Share with finance teams to prioritize collections.
