@@ -1,0 +1,22 @@
+# Step 1: Load the Data
+import pandas as pd
+df = pd.read_csv("/Users/pujarani/Desktop/Mast Global Project/invoice_data.csv")
+
+# Step 2: Perform SQL_Like Data Analysis in Pandas
+# To analyze late payments and customer behavior, run:
+late_payment_analysis = df.groupby("customer_id").agg(
+    avg_days_late=("days_past_due", "mean"),
+    total_invoices=("invoice_id", "count"),
+    late_payments=("days_past_due", lambda x: (x> 30).sum())).reset_index()
+late_payment_analysis.head()
+
+# Step 3: Compute Risk Score
+# Create a risk score for each invoice:
+df["risk_score"] = df["days_past_due"]/df["invoice_amount"]
+
+#Flag high-risk invoices (threshold > 0.05)
+df["high_risk"] = df["risk_score"].apply(lambda x: 1 if x > 0.05 else 0)
+
+#save for Tableau
+df.to_csv("/Users/pujarani/Desktop/Mast Global Project/invoice_risk_scores.csv", index=False)
+df.head()
